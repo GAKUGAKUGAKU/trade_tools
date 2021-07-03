@@ -79,7 +79,19 @@ constapp = new Vue({
     del: function (index) {
       console.log("dlelButton click");
       this.items.splice(index,1);
+    },
+    downloadcsv: function () {
+      var csv = '\uFEFF' + '#,日時,戦略,ティッカー,ID,買付/売却,価格,数量,手数料,理由,備考\n'
+      this.items.forEach(el => {
+        var line = el['no'] + ',' + el['date'] + ',' +  el['strategy']  + ',' +  el['ticker'] + ','  +  el['id'] + ','  +  el['favorite'] + ','  +  el['value']  + ',' +  el['quantity'] + ','  +  el['cost'] + ','  +  el['reason']  + ',' +  el['memo'] + '\n'
+        csv += line
+      })
+      let blob = new Blob([csv], { type: 'text/csv' })
+      let link = document.createElement('a')
+      link.href = window.URL.createObjectURL(blob)
+      link.download = 'trade_data.csv'
+      link.click()
     }
   }
 }
- )
+)
