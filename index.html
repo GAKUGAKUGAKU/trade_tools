@@ -23,25 +23,24 @@
         <link type="text/css" href="./testcss/blk-design-system.min.css" rel="stylesheet">
     </head>
     <body>
-        <script src="script.js"></script>
         <div id="title">
             <h1>株トレーダー必須ツール</p>
         </div>
         <div>
             <button>help</button>
         </div>
-        <div>
+        <div id="app">
             <h2>trade logs</h2>
-            <button type="button" rel="tooltip" data-placement="top" title="新規追加" class="btn btn-info btn-sm btn-icon">
+            <button type="button" rel="tooltip" data-placement="top" title="新規追加" class="btn btn-info btn-sm btn-icon" v-on:click="add">
                 <i class="tim-icons icon-simple-add"></i>
             </button>
-            <button type="button" rel="tooltip" data-placement="top" title="csv upload" class="btn btn-info btn-sm btn-icon">
-                <i class="tim-icons icon-cloud-upload-94"></i>
-            </button>
-            <button type="button" rel="tooltip" data-placement="top" title="トレード分析" class="btn btn-info btn-sm btn-icon">
+            <button type="button" rel="tooltip" data-placement="top" title="トレード分析" class="btn btn-info btn-sm btn-icon" v-on:click="analysis">
                 <i class="tim-icons icon-chart-pie-36"></i>
             </button>
-        <div id="app">
+            <button type="uploadbutton" rel="tooltip" data-placement="top" title="csv upload" class="btn btn-info btn-sm btn-icon" v-on:click="uploadcsv">
+                <i class="tim-icons icon-cloud-upload-94"></i>
+            </button>
+            <input @change="uploadcsv" type="file" id="file_input_expense" name="file_input_expense" value="utf-8">
             <table class="table">
                 <thead>
                     <tr>
@@ -60,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in items">
+                    <tr v-for="(item, index) in items" v-bind:item="item" v-bind:key="item.no" v-bind:index="index">
                         <td class="text-center">{{ item.no }}</td>
                         <td>{{ item.date }}</td>
                         <td>{{ item.strategy }}</td>
@@ -72,11 +71,11 @@
                         <td>{{ item.cost }}</td>
                         <td>{{ item.reason }}</td>
                         <td>{{ item.memo }}</td>
-                        <td class="td-actions text-right">
+                        <td class="td-actions">
                             <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-icon">
                                 <i class="tim-icons icon-single-02"></i>
                             </button>
-                            <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
+                            <button type="button" rel="tooltip" data-placement="top" title="編集" class="btn btn-success btn-sm btn-icon" v-on:click="mod">
                                 <i class="tim-icons icon-settings-gear-63"></i>
                             </button>
                             <button id="dlelButton" type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon" v-on:click="del(index)">
@@ -86,6 +85,10 @@
                     </tr>
                 </tbody>
             </table>
+            <button type="button" rel="tooltip" data-placement="top" title="save" class="btn btn-success btn-sm btn-icon" v-on:click="save">
+                <i class="tim-icons"></i>
+                保存
+            </button>
             <button type="button" rel="tooltip" data-placement="top" title="csv download" class="btn btn-info btn-sm btn-icon" v-on:click="downloadcsv">
                 <i class="tim-icons icon-cloud-download-93"></i>
             </button>
