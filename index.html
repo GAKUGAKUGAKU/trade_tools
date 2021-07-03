@@ -40,7 +40,7 @@
             <button type="uploadbutton" rel="tooltip" data-placement="top" title="csv upload" class="btn btn-info btn-sm btn-icon" v-on:click="uploadcsv">
                 <i class="tim-icons icon-cloud-upload-94"></i>
             </button>
-            <input @change="uploadcsv" type="file" id="file_input_expense" name="file_input_expense" value="utf-8">
+            <input @input="uploadcsv" type="file" id="file_input_expense" name="file_input_expense" value="utf-8">
             <table class="table">
                 <thead>
                     <tr>
